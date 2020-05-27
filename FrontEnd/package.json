@@ -1,8 +1,8 @@
 {
   "name": "navalbattle",
   "version": "1.0.0",
-  "description": "Old game naval battle be ViBobukh",
-  "main": "src/index.js",
+  "description": "Old game naval battle by ViBobukh",
+  "main": "../src/index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production"
