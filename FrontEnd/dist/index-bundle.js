@@ -861,12 +861,12 @@
 
 /***/ "./src/index.js":
 /*!**********************!*\
-  !*** ./src/index.js ***!
+  !*** ./src/client.js ***!
   \**********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("\n\n//# sourceURL=webpack:///./src/client.js?");
 
 /***/ })
 
