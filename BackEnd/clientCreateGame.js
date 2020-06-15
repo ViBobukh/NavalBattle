@@ -6,7 +6,9 @@ enterAction.addEventListener('click', ()=> choseAction(action.value));
 
 
 socket.on("message-from-server-to-client", function (msg) {
-   document.getElementById('msg').innerText = msg;
+   let resultParse = JSON.parse(msg);
+   console.log(resultParse);
+   document.getElementById("msg").innerText = resultParse.data.message
 });
 
 function choseAction(action) {
@@ -21,7 +23,7 @@ function choseAction(action) {
          socket.emit('message-from-client-to-server', `{"body": { "action": "shipsArePlaced", "userShips" : {"deck" : "[]"}, "gameId": "3f6koa6cgkb0gki3e"}}`);
          break;
       case "step":
-         socket.emit('message-from-client-to-server', `{"body": { "action": "step", "stepCoord" : ['2222']}}`);
+         socket.emit('message-from-client-to-server', `{"body": { "action": "step", "stepCoord" : [{"X": "11"}, {"Y": "88"}], "gameId": "3f6koa6cgkb0gki3e"}}`);
          break;
    }
 }
