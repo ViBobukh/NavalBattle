@@ -861,12 +861,12 @@
 
 /***/ "./src/index.js":
 /*!**********************!*\
-  !*** ./src/client.js ***!
+  !*** ./src/clientCreateGame.js ***!
   \**********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("\n\n//# sourceURL=webpack:///./src/client.js?");
+eval("\n\n//# sourceURL=webpack:///./src/clientCreateGame.js?");
 
 /***/ })
 
