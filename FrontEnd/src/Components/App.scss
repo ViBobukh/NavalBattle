@@ -1,0 +1,77 @@
+// App
+
+.captionMain{
+  margin-left: 40%;
+  font-family: 'Raleway', sans-serif;
+  font-style: oblique;
+}
+
+//StartPage
+
+.startPage{
+  display: flex;
+  flex-flow: column;
+  width: 50%;
+  height: 25%;
+  margin-left: 23%;
+  font-weight: lighter;
+  .startPageGame, .startPageSetting{
+    padding: 3%;
+    color: black;
+    font-size: 130%;
+    margin-bottom: 5%;
+    border: none;
+  }
+  a{
+    text-decoration: none !important;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+  }
+
+}
+
+//SettingPage
+
+.settingPage{
+  display: flex;
+  flex-flow: column;
+  width: 50%;
+  height: 25%;
+  margin-left: 23%;
+  font-weight: lighter;
+  .settingPageBack, .settingPageSound, .settingPageControl{
+    padding: 3%;
+    color: black;
+    font-size: 130%;
+    margin-bottom: 5%;
+    border: none;
+  };
+  a{
+    text-decoration: none !important;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+  }
+}
+
+//GamePage
+
+.gamePage{
+  display: flex;
+  flex-flow: column;
+  width: 50%;
+  height: 25%;
+  margin-left: 23%;
+  font-weight: lighter;
+  .gamePageBack, .gamePageStart, .gamePageConnect, .gamePageConnectInput{
+    padding: 3%;
+    color: black;
+    font-size: 130%;
+    margin-bottom: 5%;
+    border: none;
+  };
+  a{
+    text-decoration: none !important;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+  }
+}
