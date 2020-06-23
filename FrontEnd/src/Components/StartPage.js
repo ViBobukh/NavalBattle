@@ -1,14 +1,20 @@
 import React, {Component} from "react";
-import {Link, Route} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import Button from "./Button";
+import Page from "./Page";
 
 function StartPage() {
     return (
-        <>
-            <label className="startPage">
-                <button className="startPageGame"><Link to="/gamePage">Game</Link></button>
-                <button className="startPageSetting"><Link to="/settingPage">Setting</Link></button>
-            </label>
-        </>
+        <Page>
+            <>
+                <Button>
+                    <Link to="/gamePage">Game</Link>
+                </Button>
+                <Button>
+                    <Link to="/settingPage">Setting</Link>
+                </Button>
+            </>
+        </Page>
     )
 }
 

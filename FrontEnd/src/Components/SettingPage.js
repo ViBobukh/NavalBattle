@@ -1,14 +1,23 @@
 import React, {Component} from "react";
-import ReactDOM from "react-dom";
-import {BrowserRouter, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
+import Button from "./Button";
+import Page from "./Page";
 
 function SettingPage() {
     return(
-        <label className="settingPage">
-            <button className="settingPageBack"><Link to="/">Back</Link></button>
-            <button className="settingPageSound">Sound</button>
-            <button className="settingPageControl">Control</button>
-        </label>
+        <Page>
+            <>
+                <Button>
+                    <Link to="/">Back</Link>
+                </Button>
+                <Button>
+                    Sound
+                </Button>
+                <Button>
+                    Control
+                </Button>
+            </>
+        </Page>
     )
 }
 

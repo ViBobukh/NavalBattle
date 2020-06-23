@@ -1,77 +1,60 @@
 // App
 
 .captionMain{
-  margin-left: 40%;
+  text-align: center;
+  font-size: 300%;
   font-family: 'Raleway', sans-serif;
-  font-style: oblique;
 }
 
-//StartPage
+// Button
 
-.startPage{
-  display: flex;
-  flex-flow: column;
-  width: 50%;
-  height: 25%;
-  margin-left: 23%;
+.commonButton, .connectInput {
+  cursor: pointer;
+  padding: 3%;
+  color: black;
+  font-size: 130%;
+  margin-bottom: 5%;
+  border: none;
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
   font-weight: lighter;
-  .startPageGame, .startPageSetting{
-    padding: 3%;
-    color: black;
-    font-size: 130%;
-    margin-bottom: 5%;
-    border: none;
-  }
   a{
     text-decoration: none !important;
     font-family: 'Raleway', sans-serif;
     font-style: normal;
-  }
-
-}
-
-//SettingPage
-
-.settingPage{
-  display: flex;
-  flex-flow: column;
-  width: 50%;
-  height: 25%;
-  margin-left: 23%;
-  font-weight: lighter;
-  .settingPageBack, .settingPageSound, .settingPageControl{
-    padding: 3%;
-    color: black;
-    font-size: 130%;
-    margin-bottom: 5%;
-    border: none;
-  };
-  a{
-    text-decoration: none !important;
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
+    font-weight: lighter;
   }
 }
 
-//GamePage
+// Page
 
-.gamePage{
+.page{
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-flow: column;
-  width: 50%;
-  height: 25%;
-  margin-left: 23%;
-  font-weight: lighter;
-  .gamePageBack, .gamePageStart, .gamePageConnect, .gamePageConnectInput{
-    padding: 3%;
-    color: black;
-    font-size: 130%;
-    margin-bottom: 5%;
-    border: none;
-  };
-  a{
-    text-decoration: none !important;
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-  }
+  width: 30%;
+  height: 15%;
+}
+
+// input
+
+.connectInput{
+  background-color: #afafaf;
+}
+
+// field
+
+.gameField{
+  display: flex !important;
+  flex-flow: column;
+  border: black 2px;
+  height: 350px;
+}
+
+.fieldLine{
+    background-color: crimson;
 }
