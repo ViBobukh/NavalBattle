@@ -1,3 +1,9 @@
+// root
+
+#root{
+  font-family: 'Raleway', sans-serif;
+}
+
 // App
 
 .captionMain{
@@ -26,6 +32,10 @@
   }
 }
 
+.buttonShip{
+
+}
+
 // Page
 
 .page{
@@ -48,13 +58,81 @@
 
 // field
 
+.field{
+  padding: 3%;
+  margin-left: 10%;
+}
+
 .gameField{
   display: flex !important;
   flex-flow: column;
-  border: black 2px;
-  height: 350px;
+  height: 425px;
+  width: 50%;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 .fieldLine{
-    background-color: crimson;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.fieldCell{
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: bolder;
+  font-size: larger;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.border{
+  border: 0.1px solid black;
+}
+
+.borderInvisible{
+  border: 0.1px solid white;
+}
+.color{
+  background-color: black;
+}
+
+.fieldCaption{
+  border: none;
+}
+
+.mainDivField{
+  display: flex;
+}
+
+.infoShips, .field{
+  display: inline-flex;
+}
+
+.infoShips{
+  display: block;
+  margin-left: 10%;
+}
+
+.ship1, .ship2, .ship3, .ship4{
+  display: inline;
+  width: 150%;
+  p{
+    font-size: larger;
+    margin: 2%;
+  }
+}
+
+.containerShip{
+  display: inline;
+}
+
+.ship1, .ship2, .ship3, .ship4, .captionShip{
+  display: flex;
+  padding: 5%;
 }
