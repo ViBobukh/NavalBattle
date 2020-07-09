@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import classNames from 'classnames';
-import {eventHandler} from "./shipsHandler";
+import "./Cell.scss";
 
 function CellWithoutBorder({children, ...props}) {
     return(

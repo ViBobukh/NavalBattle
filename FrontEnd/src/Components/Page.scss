@@ -1,0 +1,13 @@
+// Page
+
+.page {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-flow: column;
+  width: 30%;
+  height: 15%;
+}

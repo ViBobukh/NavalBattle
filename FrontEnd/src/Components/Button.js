@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import "./Button.scss";
 
 function Button({children, ...props}){
     return(

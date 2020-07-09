@@ -1,58 +1,38 @@
 import React, {Component} from "react";
 import {CellWithBorder} from "./Cell";
-import {eventHandler} from "./shipsHandler"
+import "./Ship.scss";
+import classNames from 'classnames';
 
-
-function SingleDeck() {
-    return(
-        <div className="ship4" onClick={eventHandler}>
-            <p>4 ships</p>
-            <CellWithBorder/>
+function Deck({isActive, id, numberOfDecks, numberOfShips, shipSelection}) {
+    let ship = [];
+    for(let i = 0; i < numberOfDecks; ++i){
+        ship.push(<CellWithBorder key={i+numberOfDecks+numberOfShips}/>)
+    }
+    return (
+        <div
+            onClick={() => {shipSelection(id)}}
+            id={id}
+            className={classNames('ship', {pinkBackground : isActive})}
+        >
+            <p>{numberOfShips} ship</p>
+            {ship}
         </div>
     )
 }
 
-function DoubleDeck() {
-    return(
-        <div className="ship3" onClick={eventHandler}>
-            <p>3 ships</p>
-            <CellWithBorder/>
-            <CellWithBorder/>
-        </div>
-    )
-}
-
-function ThreeDeck() {
-    return(
-        <div className="ship2" onClick={eventHandler}>
-            <p>2 ships</p>
-            <CellWithBorder/>
-            <CellWithBorder/>
-            <CellWithBorder/>
-        </div>
-    )
-}
-
-function FourDeck() {
-    return(
-        <div className="ship1" onClick={eventHandler}>
-            <p>1 ships</p>
-            <CellWithBorder/>
-            <CellWithBorder/>
-            <CellWithBorder/>
-            <CellWithBorder/>
-        </div>
-    )
-}
-
-function Ship() {
+function Ship({ decks, shipSelection }) {
     return(
         <div className="infoShips">
             <h1 className="captionShip">Ships</h1>
-            <FourDeck/>
-            <ThreeDeck/>
-            <DoubleDeck/>
-            <SingleDeck/>
+            {decks.map(deckInfo => {
+                return <Deck
+                    shipSelection={shipSelection}
+                    id={deckInfo.id}
+                    isActive={deckInfo.isActive}
+                    numberOfDecks={deckInfo.numberOfDecks}
+                    numberOfShips={deckInfo.numberOfShips}
+                />;
+            })}
         </div>
     )
 }

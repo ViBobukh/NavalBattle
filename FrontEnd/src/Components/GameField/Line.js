@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {CellWithBorder, CellWithoutBorder} from "./Cell";
-
+import "./Line.scss";
 
 function Line({info}) {
     return (

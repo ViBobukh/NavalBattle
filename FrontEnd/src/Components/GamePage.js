@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Button from "./Button";
 import Page from "./Page";
 import {Link} from "react-router-dom";
+import "./GamePage.scss";
 
 
 function GamePage({history}) {
