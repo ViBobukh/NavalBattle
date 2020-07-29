@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom';
 import Button from "../Button/Button";
 import Page from "./Page";
 
-function StartPage() {
+function StartPage({createGame}) {
     return (
         <Page>
             <>
-                <Button>
+                <Button onClick={createGame}>
                     <Link to="/gamePage">Game</Link>
                 </Button>
                 <Button>

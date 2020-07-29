@@ -1,4 +1,4 @@
-const Messages = require('./src/constants.js');
+const Messages = require('./constants.js');
 
 function createServer(handler) {
     const express = require('express');
@@ -9,7 +9,6 @@ function createServer(handler) {
 
     io.on('connection', (socket) => {
         socket.on(Messages.Messages.MSG_CLI_SER, (msg) => {
-            console.log(msg)
             handler(msg, socket);
         })
     });

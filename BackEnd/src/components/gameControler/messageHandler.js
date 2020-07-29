@@ -10,8 +10,7 @@ function createGame(socket){
         user1: {
             socket: socket,
             steps: [],
-            userId: userId,
-            ships: []
+            userId: userId
         },
         stepPerformer: "User1",
         gameId: '3f6koa6cgkb0gki3e'
@@ -80,6 +79,7 @@ function handlerStep(parseMsg, socket){
 }
 
 function handler(msg, socket) {
+    console.log(msg)
     let parseMsg = JSON.parse(msg);
     switch (parseMsg.body.action) {
         case "createGame":
