@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Button from "../Button/Button";
 import Page from "./Page";
 import {Link} from "react-router-dom";
-import "./GamePage.scss";
+import Connect from "../Connect/Connect";
 
 
 function GamePage({history}) {
@@ -17,10 +17,7 @@ function GamePage({history}) {
                 <Button>
                     <Link to="/gameField">Start</Link>
                 </Button>
-                <Button>
-                    Connect
-                </Button>
-                <input className="connectInput" type="text"/>
+                <Connect/>
             </>
         </Page>
     )

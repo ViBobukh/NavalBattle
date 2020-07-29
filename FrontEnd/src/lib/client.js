@@ -13,7 +13,6 @@ export function subscribe(callback) {
     socket.on("message-from-server-to-client", callback);
 }
 
-export function sendMessage(message, typeMsg) {
-    console.log(message)
-    socket.emit('message-from-client-to-server', `{"body": { "action": ${typeMsg}, "message": ${message}`);
+export function sendMessage(typeMsg, message="") {
+    socket.emit('message-from-client-to-server', `{"body": { "action": "${typeMsg}", "message": ${JSON.stringify(message)}}}`);
 }
