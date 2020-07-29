@@ -1,0 +1,20 @@
+// Button
+
+.commonButton, .connectInput {
+  cursor: pointer;
+  padding: 3%;
+  color: black;
+  font-size: 130%;
+  margin-bottom: 5%;
+  border: none;
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: lighter;
+  a {
+    text-decoration: none !important;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: lighter;
+    color: black;
+  }
+}
