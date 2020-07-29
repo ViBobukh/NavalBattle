@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import Button from "./Button";
+import Button from "../Button/Button";
 import Page from "./Page";
 
 function SettingPage() {

@@ -10,7 +10,8 @@ function createGame(socket){
         user1: {
             socket: socket,
             steps: [],
-            userId: userId
+            userId: userId,
+            ships: []
         },
         stepPerformer: "User1",
         gameId: '3f6koa6cgkb0gki3e'

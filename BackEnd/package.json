@@ -12,7 +12,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "main": "clientCreateGame.js",
+  "main": "../FrontEnd/src/lib/client.js",
   "devDependencies": {},
   "author": "",
   "license": "ISC",

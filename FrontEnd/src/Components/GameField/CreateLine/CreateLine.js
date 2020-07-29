@@ -3,14 +3,14 @@ import React, {Component} from "react";
 function createLine(num) {
     return {
         value: `${num}`,
-        key: `line${num}`,
-        cells: [{value: `${num}`, key: "num"},
-            {value: " ", key: "a", cellState: "empty"}, {value: " ", key: "b", cellState: "empty"},
-            {value: " ", key: "c", cellState: "empty"}, {value: " ", key: "d", cellState: "empty"},
-            {value: " ", key: "e", cellState: "empty"}, {value: " ", key: "f", cellState: "empty"},
-            {value: " ", key: "g", cellState: "empty"}, {value: " ", key: "h", cellState: "empty"},
-            {value: " ", key: "i", cellState: "empty"}, {value: " ", key: "j", cellState: "empty"}
-            ]
+        key: `${num}`,
+        cells: [{value: `${num}`, line: `${num}`,  key: "num"},
+            {line: `${num}`, cell: "1", cellState: "empty"}, {line: `${num}`, cell: "2", cellState: "empty"},
+            {line: `${num}`, cell: "3", cellState: "empty"}, {line: `${num}`, cell: "4", cellState: "empty"},
+            {line: `${num}`, cell: "5", cellState: "empty"}, {line: `${num}`, cell: "6", cellState: "empty"},
+            {line: `${num}`, cell: "7", cellState: "empty"}, {line: `${num}`, cell: "8", cellState: "empty"},
+            {line: `${num}`, cell: "9", cellState: "empty"}, {line: `${num}`, cell: "10", cellState: "empty"}
+        ]
     }
 }
 
@@ -32,4 +32,4 @@ function createField() {
     return allLine;
 }
 
-export{createField};
+export {createField};
