@@ -3,7 +3,7 @@ import Line from "../Line/Line";
 import {createField} from "../CreateLine/CreateLine";
 import "./Field.scss";
 
-function Field({cellHandler}){
+function Field({cellHandler, className}){
     let user = createField();
 
     let lines = user.map((line)=>{
@@ -15,7 +15,7 @@ function Field({cellHandler}){
     });
 
     return(
-        <div className="mainDivField">
+        <div className={className}>
             <div className="field">
                 {lines}
             </div>

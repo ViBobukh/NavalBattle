@@ -6,6 +6,7 @@ import SettingPage from "../Page/SettingPage";
 import "./App.scss";
 import SetField from "../GameField/SetField/SetField";
 import {ActionConst, sendMessage, subscribe} from "../../lib/client";
+import GameField from "../FieldsGames/GameField";
 
 
 class App extends Component{
@@ -38,11 +39,11 @@ class App extends Component{
     }
 
     shipsEnter(){
-        // sendMessage(ActionConst.SHIPS_ARE_PLACED, this.state.ships)
+        sendMessage(ActionConst.SHIPS_ARE_PLACED,
+            {userShips : {deck : this.state.ships}, gameId: "3f6koa6cgkb0gki3e"});
     }
 
-    createGame(event){
-        console.log(event)
+    createGame(){
         sendMessage(ActionConst.CREATE_GAME)
     }
 
@@ -54,7 +55,6 @@ class App extends Component{
                 action: resultParse
             });
         });
-        console.log(this.state.action)
     }
 
     render() {
@@ -66,12 +66,13 @@ class App extends Component{
                     <Router>
                         <Route path="/" exact render={() => <StartPage createGame={this.createGame.bind(this)}/>}/>
                         <Route path="/gamePage"
-                               render={() => <GamePage/>}
+                               render={() => <GamePage history={history}/>}
                         />
                         <Route path="/settingPage" component={SettingPage}/>
-                        <Route path="/gameField"
-                               render={() => <SetField shipsEnter={this.shipsEnter.bind(this)}/>}
+                        <Route path="/setField"
+                               render={() => <SetField message={this.state.action.data} shipsEnter={this.shipsEnter.bind(this)}/>}
                         />
+                        <Route path="/gameField" component={GameField}/>
                     </Router>
                 </label>
             </>
