@@ -2,7 +2,9 @@ import React, {Component} from "react";
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import Button from "../Button/Button";
-import App from "../App/App";
+import "./Connect.scss";
+import {ActionConst, sendMessage} from "../../lib/client";
+import {Link} from "react-router-dom";
 
 const customStyles = {
     content : {
@@ -22,9 +24,17 @@ class Connect extends Component{
         super(props);
         this.state={
             modalIsOpen: false,
-            setIsOpen: false
+            gameId: ''
         }
         this.subtitle = '';
+    }
+
+    inputValue(event){
+        this.setState({gameId: event.target.value})
+    }
+
+    createConnect(){
+        sendMessage(ActionConst.CONNECT, {gameId: this.state.gameId, userId: this.state.userId})
     }
 
     openModal(){
@@ -36,12 +46,12 @@ class Connect extends Component{
     }
 
     closeModal(){
-        this.setState({setIsOpen: false})
+        this.setState({modalIsOpen: false})
     }
 
     render() {
         return(
-            <div>
+            <>
                 <Button onClick={this.openModal.bind(this)}>Connect</Button>
                 <Modal
                     isOpen={this.state.modalIsOpen}
@@ -50,13 +60,14 @@ class Connect extends Component{
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
-                    <button onClick={this.closeModal.bind(this)}>close</button>
-                    <h2 ref={_subtitle => (this.subtitle = _subtitle)}>Please, enter game ID</h2>
-                    <input/>
-                    <button>enter</button>
-
+                    <button className="closeButton" onClick={this.closeModal.bind(this)}>X</button>
+                    <h2 className="connectCaption" ref={_subtitle => (this.subtitle = _subtitle)}>Please, enter game ID</h2>
+                    <input onInput={this.inputValue.bind(this)} className="connectInput"/>
+                    <button onClick={this.createConnect.bind(this)} className="enterButton">
+                        <Link to="/setField">Enter</Link>
+                    </button>
                 </Modal>
-            </div>
+            </>
         )
     }
 }

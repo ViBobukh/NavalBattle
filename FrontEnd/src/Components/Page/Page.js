@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import "./Page.scss";
 
 function Page({children, ...props}) {

@@ -3,6 +3,7 @@ import {CellWithBorderShip} from "../Cell/Cell";
 import "./ShipSelection.scss";
 import classNames from 'classnames';
 import createShipSelection from "./createShipSelection";
+import {Link} from "react-router-dom";
 
 function Deck({info, id, shipSelectionHandler, isActive}) {
     let numberOfShips = info.numberOfShip;
@@ -63,7 +64,9 @@ class ShipSelection extends Component{
             <div className="infoShips">
                 <h1 className="captionShip">Ships</h1>
                 {this.createDecks()}
-                <div onClick={this.props.shipsEnter} className="shipSelectionButton">Start</div>
+                <div onClick={this.props.shipsEnter} className="shipSelectionButton">
+                    <Link to="/gameField">Start</Link>
+                </div>
             </div>
         )
     }

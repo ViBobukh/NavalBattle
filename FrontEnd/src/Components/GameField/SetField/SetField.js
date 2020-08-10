@@ -2,6 +2,7 @@ import Field from "../Field/Field";
 import ShipSelection from "../ShipSelection/ShipSelection";
 import React, {Component} from "react";
 import "./SetField.scss";
+import classNames from 'classnames';
 
 class SetField extends Component{
     constructor(props) {
@@ -32,11 +33,13 @@ class SetField extends Component{
         return(
             <div className="gameField">
                 <Field
+                    className={classNames('marginSetField', 'mainDivField')}
                     cellHandler={this.cellHandler.bind(this)}
                 />
                 <ShipSelection
                     stateHandler={this.stateHandler.bind(this)}
                     shipsEnter={this.props.shipsEnter}
+                    message={this.props.message}
                 />
             </div>
         )

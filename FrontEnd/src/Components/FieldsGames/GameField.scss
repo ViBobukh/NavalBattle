@@ -1,0 +1,21 @@
+.fields{
+  display:flex;
+  flex-wrap:wrap;
+  flex-direction:row;
+  justify-content:flex-start;
+  align-items:stretch;
+  margin-top: -3%;
+
+  .captionField{
+    text-align: center;
+  }
+
+  .fieldUser{
+    margin-left: 15%;
+  }
+
+  .fieldEnemy{
+    margin-left: 15%;
+  }
+
+}
