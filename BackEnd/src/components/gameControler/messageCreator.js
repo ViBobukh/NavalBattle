@@ -15,7 +15,8 @@ function messageConnectSuccess(userId, gameId){
         actionType: "connect",
         data: {
            userId: userId,
-           gameId: gameId
+           gameId: gameId,
+           message: '',
         }
     })
 }
@@ -37,7 +38,20 @@ function messageCheckShips(gameId){
         actionType: "shipsArePlaced",
         data: {
             gameId: gameId,
-            message: "Start of the game"
+            message: "User are placed ships"
+        }
+    })
+}
+
+//game ready
+
+function messageGameReady(ships, nextPerformer){
+    return JSON.stringify({
+        actionType: "gameReady",
+        data: {
+            message: "Start of the game",
+            ships: ships,
+            nextPerformer: nextPerformer
         }
     })
 }
@@ -80,6 +94,7 @@ module.exports = {
     createClientStepMessage,
     messageGameOver,
     stepErrorMessage,
+    messageGameReady,
     messageCheckShips,
     messageConnectError,
     messageConnectSuccess,

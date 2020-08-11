@@ -21,20 +21,24 @@ function createGame(socket){
 function connect(parseMsg, socket){
     const userId = uniqid();
     let game = games.find((game)=> {
-        return game.gameId === parseMsg.body.gameId
+        return game.gameId === parseMsg.gameId
     });
     if(game && !game.user2){
         game.user2 = {socket: socket, steps: [], userId: userId};
         socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageConnectSuccess(userId, "3f6koa6cgkb0gki3e"));
-    }else {
+    }else if(game && (!game.user1)){
+        socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageConnectSuccess(userId, "3f6koa6cgkb0gki3e"));
+    } else {
         socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageConnectError("3f6koa6cgkb0gki3e"));
     }
 }
 
 function checkShips(parseMsg, socket){
+    console.log(parseMsg)
     let checkUser = games.find((game)=> {
         return game.gameId === parseMsg.gameId
     });
+
     switch (socket.id) {
         case checkUser.user1.socket.id:
             checkUser.user1.ships = parseMsg.userShips;
@@ -45,6 +49,26 @@ function checkShips(parseMsg, socket){
             socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageCheckShips("3f6koa6cgkb0gki3e"));
             break;
 
+    }
+}
+
+function gameReady(){
+    let nextPerformerUser1 = false;
+    let nextPerformerUser2 = false;
+
+    if(games[0].stepPerformer === "User1"){
+        nextPerformerUser1 = true;
+    }else {
+        nextPerformerUser2 = true;
+    }
+
+    if(games){
+        if(games[0].user1.ships && games[0].user2.ships){
+            games[0].user1.socket.emit(Constants.Messages.MSG_SER_CLI,
+                Message.messageGameReady(games[0].user1.ships, nextPerformerUser1));
+            games[0].user2.socket.emit(Constants.Messages.MSG_SER_CLI,
+                Message.messageGameReady(games[0].user2.ships, nextPerformerUser2));
+        }
     }
 }
 
@@ -64,12 +88,12 @@ function handlerStep(parseMsg, socket){
             game.user2.steps.push(parseMsg.stepCoord);
         }
         console.log(stepCheck)
-        if(stepCheck > 0 && stepCheck <= 2){
+        if(stepCheck > 0 && stepCheck <= 8){
             game.user1.socket.emit(Constants.Messages.MSG_SER_CLI,
                 Message.createClientStepMessage(currentPerformer, game.stepPerformer, "User1"));
             game.user2.socket.emit(Constants.Messages.MSG_SER_CLI,
                 Message.createClientStepMessage(currentPerformer, game.stepPerformer, "User2"));
-        }else if(stepCheck > 2){
+        }else if(stepCheck > 8){
             game.user1.socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageGameOver("3f6koa6cgkb0gki3e"));
             game.user2.socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageGameOver("3f6koa6cgkb0gki3e"));
         }else {
@@ -78,26 +102,34 @@ function handlerStep(parseMsg, socket){
     }
 }
 
+
 function handler(msg, socket) {
-    console.log(msg)
-    let parseMsg = JSON.parse(msg);
-    switch (parseMsg.body.action) {
-        case "createGame":
-            createGame(socket);
-            console.log(games)
-            break;
-        case "connect":
-            connect(parseMsg,socket);
-            console.log(games)
-            break;
-        case "shipsArePlaced":
-            checkShips(parseMsg.body, socket);
-            console.log(games)
-            break;
-        case "step":
-            handlerStep(parseMsg.body, socket);
-            console.log(games)
-            break;
+    try{
+        console.log(msg)
+        let parseMsg = JSON.parse(msg);
+        let message = parseMsg.body.message;
+        switch (parseMsg.body.action) {
+            case "createGame":
+                createGame(socket);
+                console.log(games)
+                break;
+            case "connect":
+                connect(message,socket);
+                console.log(games)
+                break;
+            case "shipsArePlaced":
+                checkShips(message, socket);
+                gameReady();
+                console.log(games)
+                break;
+            case "step":
+                handlerStep(message, socket);
+                console.log(games)
+                break;
+        }
+    }
+    catch (e) {
+        console.log(e)
     }
 }
 

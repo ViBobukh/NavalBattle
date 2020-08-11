@@ -23,7 +23,7 @@ function choseAction(action) {
          socket.emit('message-from-client-to-server', `{"body": { "action": "shipsArePlaced", "userShips" : {"deck" : "[]"}, "gameId": "3f6koa6cgkb0gki3e"}}`);
          break;
       case "step":
-         socket.emit('message-from-client-to-server', `{"body": { "action": "step", "stepCoord" : [{"X": "11"}, {"Y": "88"}], "gameId": "3f6koa6cgkb0gki3e"}}`);
+         socket.emit('message-from-client-to-server', `{"body": { "action": "step", "stepCoord" : [{"cell": "5"}, {"line": "8"}], "gameId": "3f6koa6cgkb0gki3e"}}`);
          break;
    }
 }
