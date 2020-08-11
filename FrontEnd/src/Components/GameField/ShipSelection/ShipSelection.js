@@ -65,7 +65,15 @@ class ShipSelection extends Component{
                 <h1 className="captionShip">Ships</h1>
                 {this.createDecks()}
                 <div onClick={this.props.shipsEnter} className="shipSelectionButton">
-                    <Link to="/gameField">Start</Link>
+                    <Link to="/gameField"
+                          style={{
+                              textDecoration: 'none',
+                              color: 'black',
+                              fontFamily: 'Raleway',
+                              fontStyle: 'normal',
+                              fontWeight: 'lighter',
+                          }}>Start
+                    </Link>
                 </div>
             </div>
         )

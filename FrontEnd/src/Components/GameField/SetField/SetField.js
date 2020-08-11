@@ -33,6 +33,7 @@ class SetField extends Component{
         return(
             <div className="gameField">
                 <Field
+                    field={this.props.field}
                     className={classNames('marginSetField', 'mainDivField')}
                     cellHandler={this.cellHandler.bind(this)}
                 />

@@ -7,34 +7,19 @@ import "./App.scss";
 import SetField from "../GameField/SetField/SetField";
 import {ActionConst, sendMessage, subscribe} from "../../lib/client";
 import GameField from "../FieldsGames/GameField";
+import {createField} from "../GameField/CreateLine/CreateLine";
+import {ships} from "./hardcoreShips";
 
 
 class App extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            action: "",
-            ships: {
-                '1': [
-                    {line: "1",  cell: "1", cellState: "ship"},{line: "10",  cell: "10", cellState: "ship"},
-                    {line: "1",  cell: "10", cellState: "ship"},{line: "10",  cell: "1", cellState: "ship"}
-                ],
-                '2': [
-                    [{line: "3",  cell: "3", cellState: "ship"},{line: "3",  cell: "4", cellState: "ship"}],
-                    [{line: "6",  cell: "3", cellState: "ship"},{line: "6",  cell: "4", cellState: "ship"}],
-                    [{line: "8",  cell: "3", cellState: "ship"},{line: "8",  cell: "4", cellState: "ship"}]
-                ],
-                '3': [
-                    [{line: "2",  cell: "8", cellState: "ship"},{line: "3",  cell: "8", cellState: "ship"},
-                        {line: "4",  cell: "8", cellState: "ship"}],
-                    [{line: "7",  cell: "8", cellState: "ship"},{line: "8",  cell: "8", cellState: "ship"},
-                        {line: "9",  cell: "8", cellState: "ship"}]
-                ],
-                '4': [
-                    {line: "4", cell: "10", cellState: "ship"},{line: "5", cell: "10", cellState: "ship"},
-                    {line: "6", cell: "10", cellState: "ship"},{line: "7", cell: "10", cellState: "ship"}
-                ]
-            }
+            user: createField(),
+            myField: createField(),
+            action: {message: "none"},
+            ships: ships,
+            currentPerformer: false
         }
     }
 
@@ -47,9 +32,48 @@ class App extends Component{
         sendMessage(ActionConst.CREATE_GAME)
     }
 
+    shipsHandler(action){
+
+        let allShip = [];
+        let newUser = this.state.myField;
+
+        if(action.data){
+            if(action.data.ships){
+                this.setState({currentPerformer: action.data.nextPerformer})
+                for(let i = 1; i < 5; ++i){
+                    allShip.push(action.data.ships.deck[`${i}`])
+                }
+            }
+        }
+
+        if(allShip.length > 1){
+            allShip.map((ships)=>{
+                ships.map((ship)=>{
+                    ship.map((deck)=>{
+                        newUser[Number(deck.line)].cells[Number(deck.cell)].cellState = deck.cellState;
+                    })
+                })
+            })
+        }
+        this.setState({myField: newUser})
+    }
+
+    cellHandler(cell){
+        if(cell.cellState === "empty"){
+            sendMessage(ActionConst.STEP, {stepCoord : [cell], gameId: "3f6koa6cgkb0gki3e"})
+        }
+    }
+
+    componentDidMount() {
+        this.subscribeServer();
+    }
+
     subscribeServer(){
         subscribe((msg)=>{
             let resultParse = JSON.parse(msg);
+            if(resultParse.data.ships){
+                this.shipsHandler(resultParse);
+            }
             this.setState({
                 ...this.state,
                 action: resultParse
@@ -58,21 +82,33 @@ class App extends Component{
     }
 
     render() {
-        this.subscribeServer();
         return(
             <>
                 <h1 className="captionMain">Naval Battle</h1>
                 <label className="startPage">
                     <Router>
-                        <Route path="/" exact render={() => <StartPage createGame={this.createGame.bind(this)}/>}/>
+                        <Route path="/" exact
+                               render={() => <StartPage createGame={this.createGame.bind(this)}/>}/>
                         <Route path="/gamePage"
                                render={() => <GamePage history={history}/>}
                         />
                         <Route path="/settingPage" component={SettingPage}/>
                         <Route path="/setField"
-                               render={() => <SetField message={this.state.action.data} shipsEnter={this.shipsEnter.bind(this)}/>}
+                               render={() => <SetField
+                                   field={this.state.user}
+                                   message={this.state.action.data}
+                                   shipsEnter={this.shipsEnter.bind(this)}
+                               />}
                         />
-                        <Route path="/gameField" component={GameField}/>
+                        <Route path="/gameField"
+                               render={()=> <GameField
+                                   currentPerformer={this.state.currentPerformer}
+                                   data={this.state.action.data}
+                                   field={this.state.user}
+                                   myField={this.state.myField}
+                                   cellHandler={this.cellHandler.bind(this)}
+                               />}
+                        />
                     </Router>
                 </label>
             </>
