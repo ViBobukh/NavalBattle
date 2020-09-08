@@ -16,6 +16,7 @@ class SetField extends Component{
     }
 
     stateHandler(info){
+        console.log(info)
         this.setState({
             ...this.state,
             currentId: info.currentDeck,

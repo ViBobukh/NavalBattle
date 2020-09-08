@@ -4,17 +4,17 @@ import "./ShipSelection.scss";
 import classNames from 'classnames';
 import createShipSelection from "./createShipSelection";
 import {Link} from "react-router-dom";
+import uniqId from "uniqid";
 
 function Deck({info, id, shipSelectionHandler, isActive}) {
     let numberOfShips = info.numberOfShip;
     let numberOfDecks = info.numberOfDeck;
     let ship = [];
     for(let i = 0; i < numberOfDecks; ++i){
-        ship.push(<CellWithBorderShip/>)
+        ship.push(<CellWithBorderShip key={uniqId()}/>)
     }
     return (
         <div
-            key={id}
             onClick={()=>{shipSelectionHandler(id)}}
             id={id}
             className={classNames('ship', {pinkBackground : isActive})}

@@ -4,8 +4,8 @@
   font-style: normal;
   font-weight: bolder;
   font-size: larger;
-  width: 30px;
-  height: 30px;
+  width: 2.5vw;
+  height: 5vh;
   padding: 0;
   margin: 0;
 }
@@ -20,4 +20,17 @@
 
 .borderInvisible {
   border: 0.1px solid white;
+}
+
+.hit{
+  background-image: url('../../../sourse/image/hit.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: pink;
+}
+
+.missed{
+  background-image: url('../../../sourse/image/missed.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }

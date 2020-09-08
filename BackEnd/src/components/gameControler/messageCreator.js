@@ -60,31 +60,47 @@ function messageGameReady(ships, nextPerformer){
 
 function stepErrorMessage(gameId){
     return JSON.stringify({
-        actionType: "step",
+        actionType: "stepNext",
         data: {
             gameId: gameId,
             message: "You step next"
         }
     })
 }
-function messageGameOver(gameId){
+
+function messageGameOver(gameId, whoWin, user){
     return JSON.stringify({
-    actionType: "step",
-    data: {
-        gameId: gameId,
-        message: "Game Over"
-    }
+        actionType: "gameOver",
+        data: {
+            win: user === whoWin,
+            whoWin: whoWin,
+            gameId: gameId,
+            message: "Game Over"
+        }
     });
 }
 
-function createClientStepMessage(current, next, user, gameId) {
+function messageKilledShip(ship, gameId, ) {
+    return JSON.stringify({
+        actionType: "killedShip",
+        data: {
+            gameId: gameId,
+            message: "This ship was kill",
+            ship: ship
+        }
+    });
+}
+
+function createClientStepMessage(current, next, user, result,stepCoord, gameId) {
     return JSON.stringify({
         actionType: "step",
         data: {
             gameId: gameId,
             step: {
                 currentPerformer : current === user,
-                nextPerformer : next === user
+                nextPerformer : next === user,
+                result: result,
+                stepCoord: stepCoord
             }
         }
     });
@@ -98,5 +114,6 @@ module.exports = {
     messageCheckShips,
     messageConnectError,
     messageConnectSuccess,
-    messageCreateGame
+    messageCreateGame,
+    messageKilledShip
 }
