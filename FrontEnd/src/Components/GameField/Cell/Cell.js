@@ -21,13 +21,24 @@ function CellWithBorderShip({children, id}) {
 
 function CellWithBorder({children, cellState, cell, idLine, idCell, cellHandler}) {
     let cellStateShip = false;
-    if(cellState === "ship"){
-        cellStateShip = true;
+    let hit = false;
+    let missed = false;
+    switch (cellState) {
+        case "ship":
+            cellStateShip = true;
+            break;
+        case "hit":
+            hit = true;
+            break;
+        case "missed":
+            missed = true;
+            break;
     }
+
     return(
         <div
             id={idLine+idCell}
-            className={classNames("fieldCell", "border", {pinkBackground: cellStateShip})}
+            className={classNames("fieldCell", "border", {pinkBackground: cellStateShip, hit: hit, missed: missed})}
             onClick={()=>{cellHandler(cell)}}
         >
             {children}
