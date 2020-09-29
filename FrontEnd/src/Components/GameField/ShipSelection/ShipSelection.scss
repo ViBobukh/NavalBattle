@@ -1,9 +1,10 @@
-.infoShips {
+.ShipSelection {
   display: block;
-  .captionShip {
+  margin-right: 20%;
+  .ShipSelection-Caption {
     display: flex;
   }
-  .ship {
+  .ShipSelection-Ship {
     display: flex;
     width: 110%;
     padding: 5%;
@@ -12,21 +13,7 @@
       margin: 2%;
     }
   }
-  .pinkBackground {
+  .ShipSelection-Ship_pinkBackground {
     background-color: pink;
   }
-}
-
-.shipSelectionButton {
-  cursor: pointer;
-  border: 1px solid black;
-  font-family: 'Raleway', sans-serif;
-  font-style: normal;
-  font-weight: lighter;
-  color: black;
-  font-size: 130%;
-  width: 100%;
-  text-align: center;
-  padding: 5%;
-  margin: 8%;
 }

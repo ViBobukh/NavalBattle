@@ -1,19 +1,21 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
 import Button from "../Button/Button";
 import Page from "./Page";
 
-function SettingPage() {
+function SettingPage({onBackClick}) {
     return(
         <Page>
             <>
-                <Button>
-                    <Link to="/">Back</Link>
+                <Button
+                    className="Page_margin"
+                    onClick={onBackClick}
+                >
+                    Back
                 </Button>
-                <Button>
+                <Button className="Page_margin">
                     Sound
                 </Button>
-                <Button>
+                <Button className="Page_margin">
                     Control
                 </Button>
             </>

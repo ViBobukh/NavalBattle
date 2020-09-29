@@ -3,46 +3,102 @@ import ShipSelection from "../ShipSelection/ShipSelection";
 import React, {Component} from "react";
 import "./SetField.scss";
 import classNames from 'classnames';
+import createShipSelection from "../ShipSelection/createShipSelection";
+import {createField} from "../CreateLine/CreateLine";
+import shouldBeCellAdded from "./shipAdd.js";
 
 class SetField extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            currentId: 1,
-            currentShip: [],
-            numberOfShips: 4,
-            numberOfDecks: 1
+            field: createField(),
+            ships: {
+                1: createShipSelection(1, 4),
+                2: createShipSelection(2, 3),
+                3: createShipSelection(3, 2),
+                4: createShipSelection(4, 1),
+                currentDeck: 1
+            },
+            currentShip : [],
+            allShipUser : {
+                "1" : [], "2" : [], "3" : [], "4" : []
+            }
         };
     }
 
-    stateHandler(info){
-        console.log(info)
+    stateHandler(ships){
         this.setState({
-            ...this.state,
-            currentId: info.currentDeck,
-            numberOfDecks: info[info.currentDeck].numberOfDeck,
-            numberOfShips: info[info.currentDeck].numberOfShip
+            ships: {
+                ...this.state.ships,
+                currentDeck: ships.ships.id
+            }
         })
     }
 
-    cellHandler(cells){
-        console.log(cells)
+    shipsPlacedActivate(){
+        this.props.shipsEnter(this.state.allShipUser)
     }
 
+    cellHandler(cell){
+        const {
+            ships, currentShip, allShipUser
+        } = this.state;
+        const currentDeck = ships.currentDeck;
+        const { numberOfDeck, numberOfShip } = ships[currentDeck];
+
+        let shouldBeAdded = shouldBeCellAdded(cell, numberOfDeck, currentShip);
+
+        if(shouldBeAdded && numberOfShip > 0){
+            cell.cellState = "ship";
+            let newAllShipUser = this.state.allShipUser;
+            let newShips = this.state.ships;
+            let newCurrentShip = [
+                ...currentShip,
+                cell
+            ];
+            if(newCurrentShip.length === numberOfDeck){
+                newShips = {
+                    ...ships,
+                    [currentDeck]: {
+                        ...ships[currentDeck],
+                        numberOfShip: numberOfShip - 1
+                    }
+                }
+                newAllShipUser = {
+                    ...allShipUser,
+                    [currentDeck]: [
+                        ...allShipUser[currentDeck],
+                        newCurrentShip
+                    ]
+                };
+                newCurrentShip = [];
+            }
+
+            this.setState({
+                currentShip: newCurrentShip,
+                allShipUser: newAllShipUser,
+                ships: newShips
+            })
+        }
+    }
 
     render() {
         return(
-            <div className="gameField">
-                <Field
-                    field={this.props.field}
-                    className={classNames('marginSetField', 'mainDivField')}
-                    cellHandler={this.cellHandler.bind(this)}
-                />
-                <ShipSelection
-                    stateHandler={this.stateHandler.bind(this)}
-                    shipsEnter={this.props.shipsEnter}
-                    message={this.props.message}
-                />
+            <div className="SetField">
+                <p className="SetField-GameId">Your Game Id : {this.props.gameId}</p>
+                <div className="SetField-GameField">
+                    <Field
+                        field={this.state.field}
+                        cellHandler={this.cellHandler.bind(this)}
+                    />
+                    {this.props.gameReady ? this.props.onGameFieldClick : null}
+                    <ShipSelection
+                        shipsPlaced={this.shipsPlacedActivate.bind(this)}
+                        ships={this.state.ships}
+                        stateHandler={this.stateHandler.bind(this)}
+                        message={this.props.message}
+                    />
+                </div>
             </div>
         )
     }

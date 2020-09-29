@@ -2,9 +2,8 @@ import React, {Component} from "react";
 import {CellWithBorderShip} from "../Cell/Cell";
 import "./ShipSelection.scss";
 import classNames from 'classnames';
-import createShipSelection from "./createShipSelection";
-import {Link} from "react-router-dom";
 import uniqId from "uniqid";
+import Button from "../../Button/Button";
 
 function Deck({info, id, shipSelectionHandler, isActive}) {
     let numberOfShips = info.numberOfShip;
@@ -17,7 +16,7 @@ function Deck({info, id, shipSelectionHandler, isActive}) {
         <div
             onClick={()=>{shipSelectionHandler(id)}}
             id={id}
-            className={classNames('ship', {pinkBackground : isActive})}
+            className={classNames('ShipSelection-Ship', {'ShipSelection-Ship_pinkBackground' : isActive})}
         >
             <p>{`${numberOfShips} ship`}</p>
             {ship}
@@ -26,58 +25,37 @@ function Deck({info, id, shipSelectionHandler, isActive}) {
 
 }
 
-class ShipSelection extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            "1": createShipSelection(1, 4),
-            "2": createShipSelection(2, 3),
-            "3": createShipSelection(3, 2),
-            "4": createShipSelection(4, 1),
-            currentDeck: '1'
-        }
-    }
+function ShipSelection(props){
 
-    shipSelectionHandler(id){
-        this.setState({
-            currentDeck: id
+    function shipSelectionHandler(id){
+        props.stateHandler({
+            ships: props.ships[id]
         });
-        this.props.stateHandler(this.state);
     }
 
-    createDecks(){
+    function createDecks(){
         let decks = [];
         for(let i=1; i < 5  ; ++i){
             decks.push(<Deck
-                shipSelectionHandler={this.shipSelectionHandler.bind(this)}
+                shipSelectionHandler={shipSelectionHandler}
                 key={i}
                 id={i}
-                info={this.state[i]}
-                isActive={Number(this.state.currentDeck) === i}
+                info={props.ships[i]}
+                isActive={Number(props.ships.currentDeck) === i}
             />)
         }
         return decks;
     }
 
-    render() {
-        return(
-            <div className="infoShips">
-                <h1 className="captionShip">Ships</h1>
-                {this.createDecks()}
-                <div onClick={this.props.shipsEnter} className="shipSelectionButton">
-                    <Link to="/gameField"
-                          style={{
-                              textDecoration: 'none',
-                              color: 'black',
-                              fontFamily: 'Raleway',
-                              fontStyle: 'normal',
-                              fontWeight: 'lighter',
-                          }}>Start
-                    </Link>
-                </div>
-            </div>
-        )
-    }
+    return(
+        <div className="ShipSelection">
+            <h1 className="ShipSelection-Caption">Ships</h1>
+            {createDecks()}
+            <Button className="Page_margin" onClick={props.shipsPlaced}>
+                Ships Are Placed
+            </Button>
+        </div>
+    )
 }
 
 export default ShipSelection;

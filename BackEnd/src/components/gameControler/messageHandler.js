@@ -15,9 +15,9 @@ function createGame(socket){
             userId: userId
         },
         stepPerformer: "User1",
-        gameId: '3f6koa6cgkb0gki3e'
+        gameId: gameId
     });
-    socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageCreateGame(userId, "3f6koa6cgkb0gki3e"));
+    socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageCreateGame(userId, gameId));
 }
 
 function connect(parseMsg, socket){
@@ -27,11 +27,11 @@ function connect(parseMsg, socket){
     });
     if(game && !game.user2){
         game.user2 = {socket: socket, steps: [], winSteps: [], userId: userId};
-        socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageConnectSuccess(userId, "3f6koa6cgkb0gki3e"));
+        socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageConnectSuccess(userId, parseMsg.gameId));
     }else if(game && (!game.user1)){
-        socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageConnectSuccess(userId, "3f6koa6cgkb0gki3e"));
+        socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageConnectSuccess(userId, parseMsg.gameId));
     } else {
-        socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageConnectError("3f6koa6cgkb0gki3e"));
+        socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageConnectError(parseMsg.gameId));
     }
 }
 
@@ -44,11 +44,11 @@ function checkShips(parseMsg, socket){
     switch (socket.id) {
         case checkUser.user1.socket.id:
             checkUser.user1.ships = parseMsg.userShips;
-            socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageCheckShips("3f6koa6cgkb0gki3e"));
+            socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageCheckShips(parseMsg.gameId));
             break;
         case checkUser.user2.socket.id:
             checkUser.user2.ships = parseMsg.userShips;
-            socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageCheckShips("3f6koa6cgkb0gki3e"));
+            socket.emit(Constants.Messages.MSG_SER_CLI, Message.messageCheckShips(parseMsg.gameId));
             break;
 
     }
@@ -116,24 +116,13 @@ function gameOverCheck(steps, whoWin){
     console.log(steps.length)
     if(steps.length === 20){
         games[0].user1.socket.emit(Constants.Messages.MSG_SER_CLI,
-            Message.messageGameOver("3f6koa6cgkb0gki3e", whoWin, "User1"));
+            Message.messageGameOver(games[0].gameId, whoWin, "User1"));
         games[0].user2.socket.emit(Constants.Messages.MSG_SER_CLI,
-            Message.messageGameOver("3f6koa6cgkb0gki3e", whoWin, "User2"));
+            Message.messageGameOver(games[0].gameId, whoWin, "User2"));
         return true;
     }
 }
 
-// function sHandler(parseMsg, socket) {
-//     if (game) {
-//         const currentUser = socket.id === game.user1.socket.id ? game.user1 : game.user2;
-//         const opponent = socket.id === game.user1.socket.id ? game.user2 : game.user1;
-//
-//         if(gameOver(...)) {
-//             currentUser.socket.emit(true)
-//             opponent.
-//         }
-//     }
-// }
 
 function handlerStep(parseMsg, socket){
     let resultStep;
@@ -141,7 +130,7 @@ function handlerStep(parseMsg, socket){
     if (game) {
         let currentPerformer = game.stepPerformer;
         if (socket.id === game.user1.socket.id && game.stepPerformer === "User1") {
-            resultStep = !!checkStep(game.user1.ships, parseMsg.stepCoord[0]);
+            resultStep = !!checkStep(game.user2.ships, parseMsg.stepCoord[0]);
             if(resultStep){
                 game.user1.winSteps.push(parseMsg.stepCoord)
             }
@@ -151,7 +140,7 @@ function handlerStep(parseMsg, socket){
                 return;
             }
         }else if (socket.id === game.user2.socket.id && game.stepPerformer === "User2") {
-            resultStep = !!checkStep(game.user2.ships, parseMsg.stepCoord[0]);
+            resultStep = !!checkStep(game.user1.ships, parseMsg.stepCoord[0]);
             if(resultStep){
                 game.user2.winSteps.push(parseMsg.stepCoord)
             }
@@ -161,14 +150,14 @@ function handlerStep(parseMsg, socket){
                 return;
             }
         }else {
-            socket.emit(Constants.Messages.MSG_SER_CLI, Message.stepErrorMessage("3f6koa6cgkb0gki3e"));
+            socket.emit(Constants.Messages.MSG_SER_CLI, Message.stepErrorMessage(games[0].gameId));
         }
         game.user1.socket.emit(Constants.Messages.MSG_SER_CLI,
             Message.createClientStepMessage(currentPerformer, game.stepPerformer, "User1", resultStep,
-                parseMsg.stepCoord, "3f6koa6cgkb0gki3e"));
+                parseMsg.stepCoord, games[0].gameId));
         game.user2.socket.emit(Constants.Messages.MSG_SER_CLI,
             Message.createClientStepMessage(currentPerformer, game.stepPerformer, "User2", resultStep,
-                parseMsg.stepCoord, "3f6koa6cgkb0gki3e"));
+                parseMsg.stepCoord, games[0].gameId));
     }
 }
 
@@ -189,7 +178,7 @@ function handler(msg, socket) {
             case "shipsArePlaced":
                 checkShips(message, socket);
                 gameReady();
-                console.log(games)
+                console.log(games[0].user1.ships, games[0].user2.ships)
                 break;
             case "step":
                 handlerStep(message, socket);
