@@ -1,21 +1,13 @@
 // Button
 
-.commonButton {
+.Button {
   cursor: pointer;
-  padding: 3%;
   color: black;
-  background-color: bisque;
-  font-size: 130%;
-  margin-bottom: 5%;
-  border: none;
+  background-color: white;
+  font-size: 1.4em;
   font-family: 'Raleway', sans-serif;
   font-style: normal;
   font-weight: lighter;
-  a {
-    text-decoration: none !important;
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: lighter;
-    color: black;
-  }
+  border: 1px solid black;
+  height: 35pt;
 }

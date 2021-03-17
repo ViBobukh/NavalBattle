@@ -5,7 +5,7 @@ import uniqId from "uniqid";
 
 function Line({info, cellSelection, cellHandler}) {
     return (
-        <div className="fieldLine">{
+        <div className="Line">{
             info.cells.map((cell) => {
                     if(info.key === "letters" || cell.key === "num"){
                        return(

@@ -1,8 +1,10 @@
-.mainDivField {
+.Field{
+  width: 100%;
   display: flex;
-  width: 50%;
+  justify-content: center;
 }
 
-.field{
-  width: 50%;
+.Field_isActive {
+  opacity: 0.3;
+  border: 3px solid red;
 }

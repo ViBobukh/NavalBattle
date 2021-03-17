@@ -25,8 +25,9 @@ function createLineLetters() {
 }
 
 function createField() {
+    const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     let allLine=[createLineLetters()];
-    for (let i=1; i <= 10; ++i){
+    for (let i=1; i <= 10; ++i) {
         allLine.push(createLine(i))
     }
     return allLine;

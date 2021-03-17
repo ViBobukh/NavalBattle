@@ -1,9 +1,10 @@
 import React, {Component} from "react";
 import Line from "../Line/Line";
 import "./Field.scss";
+import classNames from 'classnames';
 
 
-function Field({cellHandler, result, className, field}){
+function Field({cellHandler, isActive, result, field}){
 
     let lines = field.map((line)=>{
         return <Line
@@ -15,10 +16,8 @@ function Field({cellHandler, result, className, field}){
     });
 
     return(
-        <div className={className}>
-            <div className="field">
-                {lines}
-            </div>
+        <div className={classNames("Field", {"Field_isActive": isActive})}>
+            {lines}
         </div>
     )
 }

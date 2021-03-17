@@ -4,7 +4,7 @@ import "./Cell.scss";
 
 function CellWithoutBorder({children, ...props}) {
     return(
-        <div className="fieldCell borderInvisible" {...props}>{children}</div>
+        <div className={classNames("fieldCell borderInvisible", props.className)} {...props}>{children}</div>
     )
 }
 

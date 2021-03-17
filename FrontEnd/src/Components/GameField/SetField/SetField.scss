@@ -1,7 +1,12 @@
-.gameField{
+.SetField-GameField{
   display: flex;
 }
 
-.marginSetField{
-  margin-left: 10%;
+.SetField-GameId {
+  text-align: center;
+  font-size: 15pt;
+}
+
+.SetField-GameField_margin{
+  margin-left: 5%;
 }

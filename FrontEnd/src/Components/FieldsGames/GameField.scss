@@ -1,29 +1,21 @@
-.fields{
-  display:flex;
-  flex-wrap:wrap;
-  flex-direction:row;
-  justify-content:flex-start;
-  align-items:stretch;
+.GameField {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
 
-  .captionField{
+  .GameField-Caption {
     text-align: center;
   }
 
-  .fieldUser{
+  .GameField-User {
     margin-left: 10%;
+    align-items: center;
   }
 
-  .fieldEnemy{
+  .GameField-Enemy {
     margin-left: 10%;
+    align-items: center;
   }
-
-}
-
-.fieldNotActive{
-  opacity: 0.3;
-  border: 3px solid red;
-}
-
-.gameIsOver{
-  opacity: 0.5;
 }

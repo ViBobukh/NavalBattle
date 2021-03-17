@@ -1,13 +1,12 @@
 // Page
 
-.page {
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+.Page {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
+  margin-left: 35%;
   width: 30%;
-  height: 15%;
+}
+
+.Page_margin {
+  margin-bottom: 3%;
 }
